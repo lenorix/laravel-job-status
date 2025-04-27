@@ -3,8 +3,8 @@
 namespace Lenorix\LaravelJobStatus\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Lenorix\LaravelJobStatus\LaravelJobStatusServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

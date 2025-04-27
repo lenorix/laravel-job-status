@@ -2,9 +2,9 @@
 
 namespace Lenorix\LaravelJobStatus;
 
+use Lenorix\LaravelJobStatus\Commands\LaravelJobStatusCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Lenorix\LaravelJobStatus\Commands\LaravelJobStatusCommand;
 
 class LaravelJobStatusServiceProvider extends PackageServiceProvider
 {
