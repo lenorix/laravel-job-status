@@ -24,7 +24,7 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(0)
         ->and($tracker->result)->toBeNull();
 
-    // Simulate the job processing with one fail to test event listeners
+    // Simulate the job processing with one fail to test event listeners.
 
     Event::dispatch(new JobQueueing('sync', null, $job, 'null', null));
     Event::dispatch(new JobQueued('sync', null, null, $job, 'null', null));
@@ -35,6 +35,7 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(1)
         ->and($tracker->result)->toBeNull();
 
+    // Simulate race condition where the job starts processing faster than the event queued is fired.
     Event::dispatch(new JobQueued('sync', null, null, $job, 'null', null));
     $tracker->refresh();
 
