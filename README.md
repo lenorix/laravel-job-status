@@ -1,4 +1,4 @@
-# Job UUID, status and result made easy and simple
+# Job ULID, status and result made easy and simple
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lenorix/laravel-job-status.svg?style=flat-square)](https://packagist.org/packages/lenorix/laravel-job-status)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/lenorix/laravel-job-status/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/lenorix/laravel-job-status/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -43,17 +43,28 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-job-status-views"
-```
-
 ## Usage
 
 ```php
-$laravelJobStatus = new Lenorix\LaravelJobStatus();
-echo $laravelJobStatus->echoPhrase('Hello, Lenorix!');
+class YourJob implements ShouldQueue
+{
+    use Queueable;
+    use Trackable; // Add this trait to your job.
+
+    public function __construct(
+        public int $input,
+    )
+    {
+        // Simplest way, alternatively `::trackDispatch()` call this for you.
+        $this->track();
+    }
+
+    public function handle()
+    {
+        // Optional, only if you want to get result with the tracker.
+        $this->setResult(...);
+    }
+}
 ```
 
 ## Testing
