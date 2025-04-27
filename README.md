@@ -23,6 +23,8 @@ You can install the package via composer:
 composer require lenorix/laravel-job-status
 ```
 
+It requires Laravel 11 or higher, and is tested on 11.37 as lowest version supported.
+
 You can publish and run the migrations with:
 
 ```bash
