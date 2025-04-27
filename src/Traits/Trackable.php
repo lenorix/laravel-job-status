@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Lenorix\LaravelJobStatus\Models\JobStatus;
+use Lenorix\LaravelJobStatus\Enums\JobStep;
 
 trait Trackable
 {
@@ -18,8 +19,8 @@ trait Trackable
     {
         $dispatch = static::dispatch(...$arguments);
 
-        $jobStatus = \Lenorix\LaravelJobStatus\Models\JobStatus::create([
-            'status' => \Lenorix\LaravelJobStatus\Enums\JobStatus::DISPATCHING,
+        $jobStatus = JobStatus::create([
+            'status' => JobStep::DISPATCHING,
         ]);
         $job = $dispatch->getJob();
         $job->jobStatus = $jobStatus;

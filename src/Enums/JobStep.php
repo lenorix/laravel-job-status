@@ -2,7 +2,7 @@
 
 namespace Lenorix\LaravelJobStatus\Enums;
 
-enum JobStatus: string
+enum JobStep: string
 {
     case DISPATCHING = 'dispatching';
     case QUEUING = 'queuing';

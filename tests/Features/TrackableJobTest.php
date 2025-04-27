@@ -1,5 +1,6 @@
 <?php
 
+use Lenorix\LaravelJobStatus\Enums\JobStep;
 use Lenorix\LaravelJobStatus\Models\JobStatus;
 use Lenorix\LaravelJobStatus\Tests\DummyJob;
 
@@ -11,11 +12,11 @@ it('can track a job', function () {
 
     $jobStatus = JobStatus::find($id);
     expect($jobStatus)->not->toBeNull();
-    expect($jobStatus->status)->toBe('dispatching');
+    expect($jobStatus->status)->toBe(JobStep::DISPATCHING->value);
     expect($jobStatus->result)->toBeNull();
 
     $job->handle();
     $jobStatus->refresh();
-    // expect($jobStatus->status)->toBe('completed');
+    // expect($jobStatus->status)->toBe(JobStep::COMPLETED->value);
     expect($jobStatus->result)->toBe(4);
 });
