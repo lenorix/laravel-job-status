@@ -2,9 +2,9 @@
 
 namespace Lenorix\LaravelJobStatus\Tests;
 
-use Lenorix\LaravelJobStatus\Traits\Trackable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Lenorix\LaravelJobStatus\Traits\Trackable;
 
 class DummyJob implements ShouldQueue
 {

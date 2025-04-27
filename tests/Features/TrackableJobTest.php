@@ -1,7 +1,7 @@
 <?php
 
-use Lenorix\LaravelJobStatus\Tests\DummyJob;
 use Lenorix\LaravelJobStatus\Models\JobStatus;
+use Lenorix\LaravelJobStatus\Tests\DummyJob;
 
 it('can track a job', function () {
     $job = DummyJob::trackDispatch(2);
@@ -16,6 +16,6 @@ it('can track a job', function () {
 
     $job->handle();
     $jobStatus->refresh();
-    //expect($jobStatus->status)->toBe('completed');
+    // expect($jobStatus->status)->toBe('completed');
     expect($jobStatus->result)->toBe(4);
 });
