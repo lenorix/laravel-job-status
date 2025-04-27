@@ -5,8 +5,8 @@ namespace Lenorix\LaravelJobStatus\Traits;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Lenorix\LaravelJobStatus\Models\JobStatus;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
+use Lenorix\LaravelJobStatus\Models\JobStatus;
 
 trait Trackable
 {
