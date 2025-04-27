@@ -9,12 +9,12 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('job_statuses', function (Blueprint $table) {
+        Schema::create('job_trackers', function (Blueprint $table) {
             $table->ulid('id')->primary();
 
             $table->enum('status', array_column(JobStep::cases(), 'value'))
-                ->default(JobStep::default()->value)
-                ->index();
+                ->default(JobStep::default()->value);
+            $table->integer('attempts')->default(0);
             $table->json('result')->nullable();
 
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('job_statuses');
+        Schema::dropIfExists('job_trackers');
     }
 };
