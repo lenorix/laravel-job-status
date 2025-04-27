@@ -5,6 +5,9 @@ namespace Lenorix\LaravelJobStatus;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Queue\Events\JobQueueing;
+use Illuminate\Queue\Events\JobQueued;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Lenorix\LaravelJobStatus\Commands\LaravelJobStatusCommand;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
@@ -32,6 +35,28 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
     public function bootingPackage()
     {
         parent::bootingPackage();
+
+        Event::listen(function (JobQueueing $event) {
+            $job = $event->job;
+
+            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
+                $job->tracker->status = JobStep::QUEUING;
+                $job->tracker->touch();
+                $job->tracker->save();
+                $job->tracker->refresh();
+            }
+        });
+
+        Event::listen(function (JobQueued $event) {
+            $job = $event->job;
+
+            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
+                $job->tracker->status = JobStep::QUEUED;
+                $job->tracker->touch();
+                $job->tracker->save();
+                $job->tracker->refresh();
+            }
+        });
 
         Queue::before(function (JobProcessing $event) {
             $job = $event->job;
