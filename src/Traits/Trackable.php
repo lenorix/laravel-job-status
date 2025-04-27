@@ -25,17 +25,12 @@ trait Trackable
     /**
      * Use it only to read, not modify it to ensure the track
      *  of the job works correctly.
-     *
-     * @var JobTracker|null
      */
     #[WithoutRelations]
     public ?JobTracker $tracker = null;
 
     /**
      * Dispatch and track at the same time.
-     *
-     * @param  mixed  ...$arguments
-     * @return PendingDispatch
      */
     public static function trackDispatch(mixed ...$arguments): PendingDispatch
     {
@@ -48,8 +43,6 @@ trait Trackable
 
     /**
      * Idempotently track the job.
-     *
-     * @return void
      */
     protected function track(): void
     {
@@ -62,9 +55,6 @@ trait Trackable
 
     /**
      * Let the job give a result by the tracker model.
-     *
-     * @param  mixed  $result
-     * @return void
      */
     protected function setResult(mixed $result): void
     {
