@@ -2,15 +2,15 @@
 
 namespace Lenorix\LaravelJobStatus;
 
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Support\Facades\Queue;
 use Lenorix\LaravelJobStatus\Commands\LaravelJobStatusCommand;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Queue\Events\JobProcessing;
-use Illuminate\Queue\Events\JobProcessed;
-use Illuminate\Queue\Events\JobFailed;
 
 class LaravelJobStatusServiceProvider extends PackageServiceProvider
 {
