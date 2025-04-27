@@ -53,8 +53,7 @@ class YourJob implements ShouldQueue
 
     public function __construct(
         public int $input,
-    )
-    {
+    ) {
         // Simplest way, alternatively `::trackDispatch()` call this for you.
         $this->track();
     }
