@@ -19,6 +19,7 @@ class DummyJob implements ShouldQueue
     public function __construct(
         public int $input,
     ) {
+        $this->track();
         // To let emulate the job processing without underlying queue job
         $this->job = new class
         {
