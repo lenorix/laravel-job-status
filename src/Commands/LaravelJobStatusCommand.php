@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Lenorix\LaravelJobStatus\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelJobStatusCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-job-status';
 
     public $description = 'My command';
 
