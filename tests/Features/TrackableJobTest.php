@@ -22,7 +22,7 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(0)
         ->and($tracker->result)->toBeNull();
 
-    // Simulate the job processing to test event listeners
+    // Simulate the job processing with one fail to test event listeners
 
     Event::dispatch(new JobProcessing('sync', $job));
     $tracker->refresh();
