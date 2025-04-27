@@ -35,6 +35,11 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(1)
         ->and($tracker->result)->toBeNull();
 
+    Event::dispatch(new JobQueued('sync', null, null, $job, 'null', null));
+    $tracker->refresh();
+
+    expect($tracker->status)->toBe(JobStep::PROCESSING->value);
+
     Event::dispatch(new JobFailed('sync', $job, new Exception('Test exception')));
     $tracker->refresh();
 
