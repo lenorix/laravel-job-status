@@ -40,9 +40,15 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
             $job = $event->job;
 
             if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                $job->tracker->status = JobStep::QUEUING;
-                $job->tracker->touch();
-                $job->tracker->save();
+                JobTracker::where('id', $job->tracker->id)
+                    ->whereIn('status', [
+                        JobStep::DISPATCHING,
+                        JobStep::FAILED,
+                    ])
+                    ->update([
+                        'status' => JobStep::QUEUING,
+                        'updated_at' => now(),
+                    ]);
                 $job->tracker->refresh();
             }
         });
@@ -51,9 +57,12 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
             $job = $event->job;
 
             if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                $job->tracker->status = JobStep::QUEUED;
-                $job->tracker->touch();
-                $job->tracker->save();
+                JobTracker::where('id', $job->tracker->id)
+                    ->where('status', JobStep::QUEUING)
+                    ->update([
+                        'status' => JobStep::QUEUED,
+                        'updated_at' => now(),
+                    ]);
                 $job->tracker->refresh();
             }
         });
@@ -62,10 +71,18 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
             $job = $event->job;
 
             if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                $job->tracker->status = JobStep::PROCESSING;
-                $job->tracker->attempts = $event->job->attempts();
-                $job->tracker->touch();
-                $job->tracker->save();
+                JobTracker::where('id', $job->tracker->id)
+                    ->whereIn('status', [
+                        JobStep::DISPATCHING,
+                        JobStep::QUEUING,
+                        JobStep::QUEUED,
+                        JobStep::FAILED,
+                    ])
+                    ->update([
+                        'status' => JobStep::PROCESSING,
+                        'attempts' => $event->job->attempts(),
+                        'updated_at' => now(),
+                    ]);
                 $job->tracker->refresh();
             }
         });
@@ -74,10 +91,12 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
             $job = $event->job;
 
             if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                $job->tracker->status = JobStep::PROCESSED;
-                $job->tracker->attempts = $event->job->attempts();
-                $job->tracker->touch();
-                $job->tracker->save();
+                JobTracker::where('id', $job->tracker->id)
+                    ->update([
+                        'status' => JobStep::PROCESSED,
+                        'attempts' => $event->job->attempts(),
+                        'updated_at' => now(),
+                    ]);
                 $job->tracker->refresh();
             }
         });
@@ -86,10 +105,12 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
             $job = $event->job;
 
             if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                $job->tracker->status = JobStep::FAILED;
-                $job->tracker->attempts = $event->job->attempts();
-                $job->tracker->touch();
-                $job->tracker->save();
+                JobTracker::where('id', $job->tracker->id)
+                    ->update([
+                        'status' => JobStep::FAILED,
+                        'attempts' => $event->job->attempts(),
+                        'updated_at' => now(),
+                    ]);
                 $job->tracker->refresh();
             }
         });
