@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Queue\Events\JobQueued;
-use Illuminate\Queue\Events\JobQueueing;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Queue\Events\JobQueued;
+use Illuminate\Queue\Events\JobQueueing;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Lenorix\LaravelJobStatus\Tests\DummyJob;
