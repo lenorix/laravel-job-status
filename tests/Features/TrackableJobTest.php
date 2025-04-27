@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Queue\Events\JobQueued;
+use Illuminate\Queue\Events\JobQueueing;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
@@ -24,6 +26,8 @@ it('can track a job', function () {
 
     // Simulate the job processing with one fail to test event listeners
 
+    Event::dispatch(new JobQueueing('sync', null, $job, 'null', null));
+    Event::dispatch(new JobQueued('sync', null, null, $job, 'null', null));
     Event::dispatch(new JobProcessing('sync', $job));
     $tracker->refresh();
 
