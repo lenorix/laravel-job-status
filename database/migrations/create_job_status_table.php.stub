@@ -3,17 +3,26 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Lenorix\LaravelJobStatus\Enums\JobStatus;
 
 return new class extends Migration
 {
     public function up()
     {
-        Schema::create('laravel_job_status_table', function (Blueprint $table) {
-            $table->id();
+        Schema::create('job_statuses', function (Blueprint $table) {
+            $table->ulid('id')->primary();
 
-            // add fields
+            $table->enum('status', array_column(JobStatus::cases(), 'value'))
+                ->default(JobStatus::default()->value)
+                ->index();
+            $table->json('result')->nullable();
 
             $table->timestamps();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('job_statuses');
     }
 };
