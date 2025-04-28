@@ -4,7 +4,8 @@
     "keywords": [
         "lenorix",
         "laravel",
-        "laravel-job-status"
+        "queue",
+        "job-status"
     ],
     "homepage": "https://github.com/lenorix/laravel-job-status",
     "license": "Unlicense",
