@@ -28,3 +28,13 @@ it('check tracker status methods', function () {
         }
     }
 });
+
+it('prune tracker', function () {
+    JobTracker::create();
+    expect(JobTracker::count())->toBe(1);
+
+    config(['job-status.prune_days' => 0]);
+
+    (new JobTracker)->pruneAll();
+    expect(JobTracker::count())->toBe(0);
+});
