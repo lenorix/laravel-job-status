@@ -25,8 +25,8 @@ class JobStatusServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel-job-status')
-            ->hasConfigFile()
+            ->name('job-status')
+            ->hasConfigFile('job-status')
             ->hasMigration('create_laravel_job_status_table');
     }
 

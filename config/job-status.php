@@ -1,6 +1,6 @@
 <?php
 
-// config for Lenorix/JobStatus
+// config for Lenorix/LaravelJobStatus
 return [
 
 ];
