@@ -1,11 +1,11 @@
-# Job ULID, status and result made easy and simple
+# Laravel Job Status
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lenorix/laravel-job-status.svg?style=flat-square)](https://packagist.org/packages/lenorix/laravel-job-status)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/lenorix/laravel-job-status/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/lenorix/laravel-job-status/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/lenorix/laravel-job-status/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/lenorix/laravel-job-status/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/lenorix/laravel-job-status.svg?style=flat-square)](https://packagist.org/packages/lenorix/laravel-job-status)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Job ULID, status and result made easy and simple.
 
 ## Support us
 
