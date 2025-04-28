@@ -68,6 +68,7 @@ it('can track a job', function () {
 it('can track a job in a easy and juicy way', function () {
     $tracker = DummyJob::dispatch(4)
         ->onConnection('sync')
+        ->afterResponse()
         ->getJob()
         ->tracker();
 
