@@ -41,8 +41,6 @@ trait Trackable
      *     ->getJob()
      *     ->tracker();
      * ```
-     *
-     * @return JobTracker
      */
     public function tracker(): JobTracker
     {
