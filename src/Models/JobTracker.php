@@ -32,6 +32,6 @@ class JobTracker extends Model
 
     public function isPending(): bool
     {
-        return !$this->isSuccessful() && !$this->isFailed();
+        return ! $this->isSuccessful() && ! $this->isFailed();
     }
 }
