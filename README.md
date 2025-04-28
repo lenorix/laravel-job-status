@@ -9,9 +9,7 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 
 ## Support us
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Support [this work in GitHub](https://github.com/lenorix/laravel-job-status) or [get in contact](https://lenorix.com/).
 
 ## Installation
 
@@ -48,6 +46,8 @@ return [
 In your job class:
 
 ```php
+use Lenorix\LaravelJobStatus\Traits\Trackable;
+
 class YourJob implements ShouldQueue
 {
     use Queueable;
@@ -56,6 +56,7 @@ class YourJob implements ShouldQueue
     public function handle()
     {
         // Optional, only if you want to get result with the tracker.
+        // It must serialize to JSON well.
         $this->setResult(...);
     }
 }
@@ -89,6 +90,8 @@ $tracker->result; // Get the result of the job, or null if not set.
 If you have the ULID:
 
 ```php
+use Lenorix\LaravelJobStatus\Facades\JobStatus;
+
 $tracker = JobStatus::of($ulid);
 ```
 
