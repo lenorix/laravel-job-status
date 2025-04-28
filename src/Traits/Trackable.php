@@ -29,6 +29,12 @@ trait Trackable
     #[WithoutRelations]
     public ?JobTracker $tracker = null;
 
+    public  function tracker(): JobTracker
+    {
+        $this->track();
+        return $this->tracker;
+    }
+
     /**
      * Dispatch and track at the same time.
      */
@@ -49,6 +55,7 @@ trait Trackable
         if (is_null($this->tracker)) {
             $this->tracker = JobTracker::create([
                 'status' => JobStep::DISPATCHING,
+                'attempts' => 0,
             ]);
         }
     }

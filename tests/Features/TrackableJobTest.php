@@ -64,3 +64,15 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(2)
         ->and($tracker->result)->toBe(4);
 });
+
+it('can track a job in a easy and juicy way', function () {
+    $tracker = DummyJob::dispatch(4)
+        ->onConnection('sync')
+        ->getJob()
+        ->tracker();
+
+    expect($tracker)->not->toBeNull()
+        ->and($tracker->status)->toBe(JobStep::DISPATCHING)
+        ->and($tracker->attempts)->toBe(0)
+        ->and($tracker->result)->toBeNull();
+});
