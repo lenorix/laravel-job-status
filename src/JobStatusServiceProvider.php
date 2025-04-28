@@ -27,7 +27,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
         $package
             ->name('job-status')
             ->hasConfigFile('job-status')
-            ->hasMigration('0001_01_01_000000_create_laravel_job_status_table');
+            ->hasMigration('000000_create_laravel_job_status_table');
     }
 
     public function bootingPackage()
