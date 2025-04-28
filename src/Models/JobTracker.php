@@ -3,7 +3,9 @@
 namespace Lenorix\LaravelJobStatus\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 
 /**
@@ -15,6 +17,7 @@ use Lenorix\LaravelJobStatus\Enums\JobStep;
 class JobTracker extends Model
 {
     use HasUlids;
+    use MassPrunable;
 
     protected $fillable = [
         'status',
@@ -26,6 +29,11 @@ class JobTracker extends Model
         'status' => JobStep::class,
         'result' => 'array',
     ];
+
+    public function prunable(): Builder
+    {
+        return static::where('updated_at', '<=', now()->subMonth());
+    }
 
     public function isSuccessful(): bool
     {
