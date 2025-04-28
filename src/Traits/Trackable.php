@@ -60,7 +60,6 @@ trait Trackable
     {
         if (! is_null($this->tracker)) {
             JobTracker::where('id', $this->tracker->id)
-                ->where('status', JobStep::PROCESSING)
                 ->update([
                     'result' => $result,
                     'updated_at' => now(),

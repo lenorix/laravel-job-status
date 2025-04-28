@@ -51,6 +51,12 @@ it('can track a job', function () {
     $job->job->mockedAttempts = 2;
     Event::dispatch(new JobProcessing('sync', $job));
     $job->handle();
+
+    $tracker->refresh();
+    expect($tracker->status)->toBe(JobStep::PROCESSING)
+        ->and($tracker->attempts)->toBe(2)
+        ->and($tracker->result)->not->toBeNull();
+
     Event::dispatch(new JobProcessed('sync', $job));
     $tracker->refresh();
 
