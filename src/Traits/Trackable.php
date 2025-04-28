@@ -29,9 +29,10 @@ trait Trackable
     #[WithoutRelations]
     public ?JobTracker $tracker = null;
 
-    public  function tracker(): JobTracker
+    public function tracker(): JobTracker
     {
         $this->track();
+
         return $this->tracker;
     }
 
