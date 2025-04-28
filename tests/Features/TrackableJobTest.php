@@ -58,3 +58,23 @@ it('can track a job', function () {
         ->and($tracker->attempts)->toBe(2)
         ->and($tracker->result)->toBe(4);
 });
+
+it('uses tracker status methods', function () {
+    $tracker = JobTracker::create();
+
+    expect($tracker->isSuccessful())->toBeFalse()
+        ->and($tracker->isFailed())->toBeFalse()
+        ->and($tracker->isPending())->toBeTrue();
+
+    $tracker->status = JobStep::FAILED;
+
+    expect($tracker->isSuccessful())->toBeFalse()
+        ->and($tracker->isFailed())->toBeTrue()
+        ->and($tracker->isPending())->toBeFalse();
+
+    $tracker->status = JobStep::PROCESSED;
+
+    expect($tracker->isSuccessful())->toBeTrue()
+        ->and($tracker->isFailed())->toBeFalse()
+        ->and($tracker->isPending())->toBeFalse();
+});
