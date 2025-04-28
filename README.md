@@ -45,18 +45,13 @@ return [
 
 ## Usage
 
+In your job class:
+
 ```php
 class YourJob implements ShouldQueue
 {
     use Queueable;
     use Trackable; // Add this trait to your job.
-
-    public function __construct(
-        public int $input,
-    ) {
-        // Simplest way, alternatively `::trackDispatch()` call this for you.
-        $this->track();
-    }
 
     public function handle()
     {
@@ -64,6 +59,37 @@ class YourJob implements ShouldQueue
         $this->setResult(...);
     }
 }
+```
+
+And when you dispatch the job:
+
+```php
+$tracker = YourJob::dispatch(...)
+        ->afterResponse()
+        ...
+        /// Get tracker to have a way to know when it's done.
+        ->getJob()
+        ->tracker();
+
+$tracker->id; // Get the tracker ULID to check it in another request.
+
+if ($tracker->isSuccessful()) {
+    ...
+}
+if ($tracker->isFailed()) {
+    ...
+}
+if ($tracker->isPending()) {
+    ...
+}
+
+$tracker->result; // Get the result of the job, or null if not set.
+```
+
+If you have the ULID:
+
+```php
+$tracker = JobStatus::of($ulid);
 ```
 
 ## Testing
