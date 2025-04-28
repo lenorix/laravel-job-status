@@ -1,13 +1,13 @@
 {
     "name": "lenorix/laravel-job-status",
-    "description": "Job UUID, status and result made easy and simple",
+    "description": "Job ULID, status and result made easy and simple",
     "keywords": [
         "lenorix",
         "laravel",
         "laravel-job-status"
     ],
     "homepage": "https://github.com/lenorix/laravel-job-status",
-    "license": "MIT",
+    "license": "Unlicense",
     "authors": [
         {
             "name": "Jesus Hernandez",
