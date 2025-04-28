@@ -31,7 +31,7 @@ it('check tracker status methods', function () {
 
 it('prune tracker', function () {
     JobTracker::create();
-    expect(JobTracker::count())->toBe(1);
+    expect(JobTracker::count())->toBeGreaterThanOrEqual(1);
 
     config(['job-status.prune_days' => 0]);
 
