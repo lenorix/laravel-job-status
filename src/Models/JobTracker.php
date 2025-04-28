@@ -2,10 +2,10 @@
 
 namespace Lenorix\LaravelJobStatus\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 
 /**
