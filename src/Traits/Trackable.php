@@ -69,12 +69,9 @@ trait Trackable
     }
 
     /**
-     * You only need to call this from handle method
-     *  if your job late more than **one month** to finish.
-     *
-     * The model is prunable, so it will be deleted
-     *  if is not updated in one month. But it's not
-     *  a common case to take so long to finish a job.
+     * You only need to call this, from job handle method,
+     *  if your job late more than configured prune days
+     *  to finish. Default prune days is 30 days.
      */
     protected function touchTracker(): void
     {

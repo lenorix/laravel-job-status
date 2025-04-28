@@ -32,7 +32,7 @@ class JobTracker extends Model
 
     public function prunable(): Builder
     {
-        return static::where('updated_at', '<=', now()->subMonth());
+        return static::where('updated_at', '<=', now()->subDays(config('job-status.prune_days', 30)));
     }
 
     public function isSuccessful(): bool
