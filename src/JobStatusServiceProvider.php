@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 use Lenorix\LaravelJobStatus\Models\JobTracker;
+use Lenorix\LaravelJobStatus\Facades\JobStatus;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -34,10 +35,9 @@ class JobStatusServiceProvider extends PackageServiceProvider
         parent::bootingPackage();
 
         Event::listen(function (JobQueueing $event) {
-            $job = $event->job;
-
-            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                JobTracker::where('id', $job->tracker->id)
+            $tracker = JobStatus::of($event->job);
+            if ($tracker) {
+                JobTracker::where('id', $tracker->id)
                     ->whereIn('status', [
                         JobStep::DISPATCHING,
                         JobStep::FAILED,
@@ -46,29 +46,27 @@ class JobStatusServiceProvider extends PackageServiceProvider
                         'status' => JobStep::QUEUING,
                         'updated_at' => now(),
                     ]);
-                $job->tracker->refresh();
+                $tracker->refresh();
             }
         });
 
         Event::listen(function (JobQueued $event) {
-            $job = $event->job;
-
-            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                JobTracker::where('id', $job->tracker->id)
+            $tracker = JobStatus::of($event->job);
+            if ($tracker) {
+                JobTracker::where('id', $tracker->id)
                     ->where('status', JobStep::QUEUING)
                     ->update([
                         'status' => JobStep::QUEUED,
                         'updated_at' => now(),
                     ]);
-                $job->tracker->refresh();
+                $tracker->refresh();
             }
         });
 
         Queue::before(function (JobProcessing $event) {
-            $job = $event->job;
-
-            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                JobTracker::where('id', $job->tracker->id)
+            $tracker = JobStatus::of($event->job);
+            if ($tracker) {
+                JobTracker::where('id', $tracker->id)
                     ->whereIn('status', [
                         JobStep::DISPATCHING,
                         JobStep::QUEUING,
@@ -80,35 +78,33 @@ class JobStatusServiceProvider extends PackageServiceProvider
                         'attempts' => $event->job->attempts(),
                         'updated_at' => now(),
                     ]);
-                $job->tracker->refresh();
+                $tracker->refresh();
             }
         });
 
         Queue::after(function (JobProcessed $event) {
-            $job = $event->job;
-
-            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                JobTracker::where('id', $job->tracker->id)
+            $tracker = JobStatus::of($event->job);
+            if ($tracker) {
+                JobTracker::where('id', $tracker->id)
                     ->update([
                         'status' => JobStep::PROCESSED,
                         'attempts' => $event->job->attempts(),
                         'updated_at' => now(),
                     ]);
-                $job->tracker->refresh();
+                $tracker->refresh();
             }
         });
 
         Queue::failing(function (JobFailed $event) {
-            $job = $event->job;
-
-            if (property_exists($job, 'tracker') && $job->tracker instanceof JobTracker) {
-                JobTracker::where('id', $job->tracker->id)
+            $tracker = JobStatus::of($event->job);
+            if ($tracker) {
+                JobTracker::where('id', $tracker->id)
                     ->update([
                         'status' => JobStep::FAILED,
                         'attempts' => $event->job->attempts(),
                         'updated_at' => now(),
                     ]);
-                $job->tracker->refresh();
+                $tracker->refresh();
             }
         });
     }
