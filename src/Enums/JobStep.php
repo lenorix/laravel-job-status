@@ -8,8 +8,8 @@ enum JobStep: string
     case QUEUING = 'queuing';
     case QUEUED = 'queued';
     case PROCESSING = 'processing';
-    case PROCESSED = 'processed';
     case FAILED = 'failed';
+    case PROCESSED = 'processed';
 
     public static function default(): self
     {
