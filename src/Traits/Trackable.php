@@ -58,7 +58,7 @@ trait Trackable
      */
     protected function setResult(mixed $result): void
     {
-        if (!is_null($this->tracker)) {
+        if (! is_null($this->tracker)) {
             JobTracker::where('id', $this->tracker->id)
                 ->where('status', JobStep::PROCESSING)
                 ->update([
