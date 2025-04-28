@@ -9,7 +9,7 @@ use Illuminate\Queue\Events\JobQueued;
 use Illuminate\Queue\Events\JobQueueing;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
-use Lenorix\LaravelJobStatus\Commands\LaravelJobStatusCommand;
+use Lenorix\LaravelJobStatus\Commands\JobStatusCommand;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Spatie\LaravelPackageTools\Package;
@@ -28,7 +28,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
             ->name('laravel-job-status')
             ->hasConfigFile()
             ->hasMigration('create_laravel_job_status_table')
-            ->hasCommand(LaravelJobStatusCommand::class);
+            ->hasCommand(JobStatusCommand::class);
     }
 
     public function bootingPackage()

@@ -4,7 +4,7 @@ namespace Lenorix\LaravelJobStatus\Commands;
 
 use Illuminate\Console\Command;
 
-class LaravelJobStatusCommand extends Command
+class JobStatusCommand extends Command
 {
     public $signature = 'laravel-job-status';
 
