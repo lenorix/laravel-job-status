@@ -15,7 +15,7 @@ use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelJobStatusServiceProvider extends PackageServiceProvider
+class JobStatusServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -27,7 +27,6 @@ class LaravelJobStatusServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-job-status')
             ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_laravel_job_status_table')
             ->hasCommand(LaravelJobStatusCommand::class);
     }

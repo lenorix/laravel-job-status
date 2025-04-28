@@ -2,4 +2,4 @@
 
 namespace Lenorix\LaravelJobStatus;
 
-class LaravelJobStatus {}
+class JobStatus {}

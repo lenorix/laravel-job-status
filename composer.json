@@ -62,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Lenorix\\LaravelJobStatus\\LaravelJobStatusServiceProvider"
+                "JobStatusServiceProvider"
             ],
             "aliases": {
-                "LaravelJobStatus": "Lenorix\\LaravelJobStatus\\Facades\\LaravelJobStatus"
+                "JobStatus": "Lenorix\\LaravelJobStatus\\Facades\\JobStatus"
             }
         }
     },

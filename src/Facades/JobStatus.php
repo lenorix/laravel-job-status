@@ -5,12 +5,12 @@ namespace Lenorix\LaravelJobStatus\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Lenorix\LaravelJobStatus\LaravelJobStatus
+ * @see \Lenorix\LaravelJobStatus\JobStatus
  */
-class LaravelJobStatus extends Facade
+class JobStatus extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Lenorix\LaravelJobStatus\LaravelJobStatus::class;
+        return \Lenorix\LaravelJobStatus\JobStatus::class;
     }
 }

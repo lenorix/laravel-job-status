@@ -32,7 +32,7 @@ trait Trackable
     /**
      * Dispatch and track at the same time.
      */
-    public static function trackDispatch(mixed ...$arguments): PendingDispatch
+    public static function dispatchWithTrack(mixed ...$arguments): PendingDispatch
     {
         $dispatch = static::dispatch(...$arguments);
 

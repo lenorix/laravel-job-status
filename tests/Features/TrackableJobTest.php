@@ -10,7 +10,7 @@ use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Lenorix\LaravelJobStatus\Tests\DummyJob;
 
 it('can track a job', function () {
-    $job = DummyJob::trackDispatch(2)
+    $job = DummyJob::dispatchWithTrack(2)
         ->onConnection('sync')
         ->getJob();
     $tackerId = $job->tracker->id;
