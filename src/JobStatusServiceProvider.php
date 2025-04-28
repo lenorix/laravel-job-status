@@ -10,8 +10,8 @@ use Illuminate\Queue\Events\JobQueueing;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
-use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Lenorix\LaravelJobStatus\Facades\JobStatus;
+use Lenorix\LaravelJobStatus\Models\JobTracker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
