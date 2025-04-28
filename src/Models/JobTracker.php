@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Lenorix\LaravelJobStatus\Enums\JobStep;
 
+/**
+ * @property string $id Auto-generated ULID
+ * @property JobStep $status
+ * @property int $attempts
+ * @property array $result
+ */
 class JobTracker extends Model
 {
     use HasUlids;
@@ -17,6 +23,7 @@ class JobTracker extends Model
     ];
 
     protected $casts = [
+        'status' => JobStep::class,
         'result' => 'array',
     ];
 

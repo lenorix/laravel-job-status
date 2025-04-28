@@ -20,7 +20,7 @@ it('can track a job', function () {
     $tracker = JobTracker::find($tackerId);
 
     expect($tracker)->not->toBeNull()
-        ->and($tracker->status)->toBe(JobStep::DISPATCHING->value)
+        ->and($tracker->status)->toBe(JobStep::DISPATCHING)
         ->and($tracker->attempts)->toBe(0)
         ->and($tracker->result)->toBeNull();
 
@@ -31,7 +31,7 @@ it('can track a job', function () {
     Event::dispatch(new JobProcessing('sync', $job));
     $tracker->refresh();
 
-    expect($tracker->status)->toBe(JobStep::PROCESSING->value)
+    expect($tracker->status)->toBe(JobStep::PROCESSING)
         ->and($tracker->attempts)->toBe(1)
         ->and($tracker->result)->toBeNull();
 
@@ -39,12 +39,12 @@ it('can track a job', function () {
     Event::dispatch(new JobQueued('sync', null, null, $job, 'null', null));
     $tracker->refresh();
 
-    expect($tracker->status)->toBe(JobStep::PROCESSING->value);
+    expect($tracker->status)->toBe(JobStep::PROCESSING);
 
     Event::dispatch(new JobFailed('sync', $job, new Exception('Test exception')));
     $tracker->refresh();
 
-    expect($tracker->status)->toBe(JobStep::FAILED->value)
+    expect($tracker->status)->toBe(JobStep::FAILED)
         ->and($tracker->attempts)->toBe(1)
         ->and($tracker->result)->toBeNull();
 
@@ -54,7 +54,7 @@ it('can track a job', function () {
     Event::dispatch(new JobProcessed('sync', $job));
     $tracker->refresh();
 
-    expect($tracker->status)->toBe(JobStep::PROCESSED->value)
+    expect($tracker->status)->toBe(JobStep::PROCESSED)
         ->and($tracker->attempts)->toBe(2)
         ->and($tracker->result)->toBe(4);
 });
