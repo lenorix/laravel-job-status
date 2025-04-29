@@ -11,6 +11,13 @@ Job status and result made easy and simple.
 
 Support [this work in GitHub](https://github.com/lenorix/laravel-job-status) or [get in contact](https://lenorix.com/).
 
+## Requirements
+
+- PHP 8.4 or 8.3
+- Laravel 11.37 or higher (12 included)
+
+Support for older versions is planned, if you can help with that, please open a PR.
+
 ## Installation
 
 You can install the package via composer:
