@@ -30,8 +30,10 @@ it('check tracker status methods', function () {
 });
 
 it('prune tracker', function () {
-    JobTracker::create();
-    expect(JobTracker::count())->toBeGreaterThanOrEqual(1);
+    for ($i = 0; $i < 10; $i++) {
+        JobTracker::create();
+    }
+    expect(JobTracker::count())->toBeGreaterThanOrEqual(10);
 
     config(['job-status.prune_days' => 0]);
 
