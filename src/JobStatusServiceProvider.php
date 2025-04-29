@@ -89,7 +89,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
                     ->update([
                         'status' => JobStep::PROCESSED,
                         'attempts' => $event->job->attempts(),
-                        'progress' => 100.0,
+                        'progress' => 1.00,
                         'updated_at' => now(),
                     ]);
                 $tracker->refresh();

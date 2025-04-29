@@ -40,3 +40,23 @@ it('prune tracker', function () {
     (new JobTracker)->pruneAll();
     expect(JobTracker::count())->toBe(0);
 });
+
+it('handle 0.00% progress', function () {
+    $trackerId = JobTracker::create([
+        'progress' => 0.00,
+    ])->id;
+    $tracker = JobTracker::find($trackerId);
+    $tracker->refresh();
+
+    expect($tracker->progress)->toBe(0.00);
+});
+
+it('handle 1.00% progress', function () {
+    $trackerId = JobTracker::create([
+        'progress' => 1.00,
+    ])->id;
+    $tracker = JobTracker::find($trackerId);
+    $tracker->refresh();
+
+    expect($tracker->progress)->toBe(1.00);
+});
