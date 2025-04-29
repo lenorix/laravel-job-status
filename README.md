@@ -38,8 +38,14 @@ This is the contents of the published config file:
 
 ```php
 return [
+    /**
+     * Days to keep job trackers in the database before to be prunable.
+     */
+    'prune_days' => env('JOB_STATUS_PRUNE_DAYS', 30),
 ];
 ```
+
+See [Laravel doc about pruning models](https://laravel.com/docs/11.x/eloquent#pruning-models) for details.
 
 ## Usage
 
