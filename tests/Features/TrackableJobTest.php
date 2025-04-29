@@ -22,6 +22,7 @@ it('can track a job', function () {
     expect($tracker)->not->toBeNull()
         ->and($tracker->status)->toBe(JobStep::DISPATCHING)
         ->and($tracker->attempts)->toBe(0)
+        ->and($tracker->progress)->toBe(0.0)
         ->and($tracker->result)->toBeNull();
 
     // Simulate the job processing with one fail to test event listeners.
@@ -33,6 +34,7 @@ it('can track a job', function () {
 
     expect($tracker->status)->toBe(JobStep::PROCESSING)
         ->and($tracker->attempts)->toBe(1)
+        ->and($tracker->progress)->toBe(0.0)
         ->and($tracker->result)->toBeNull();
 
     // Simulate race condition where the job starts processing faster than the event queued is fired.
@@ -46,6 +48,7 @@ it('can track a job', function () {
 
     expect($tracker->status)->toBe(JobStep::FAILED)
         ->and($tracker->attempts)->toBe(1)
+        ->and($tracker->progress)->not->toBe(100.0)
         ->and($tracker->result)->toBeNull();
 
     $job->job->mockedAttempts = 2;
@@ -55,6 +58,7 @@ it('can track a job', function () {
     $tracker->refresh();
     expect($tracker->status)->toBe(JobStep::PROCESSING)
         ->and($tracker->attempts)->toBe(2)
+        ->and($tracker->progress)->toBe(50.0)
         ->and($tracker->result)->not->toBeNull();
 
     Event::dispatch(new JobProcessed('sync', $job));
@@ -62,6 +66,7 @@ it('can track a job', function () {
 
     expect($tracker->status)->toBe(JobStep::PROCESSED)
         ->and($tracker->attempts)->toBe(2)
+        ->and($tracker->progress)->toBe(100.0)
         ->and($tracker->result)->toBe(4);
 });
 

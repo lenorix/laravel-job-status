@@ -75,7 +75,7 @@ trait Trackable
     }
 
     /**
-     * Let the job give a result by the tracker model.
+     * Use it from a job to set result in the tracker.
      */
     protected function setResult(mixed $result): void
     {
@@ -83,6 +83,21 @@ trait Trackable
             JobTracker::where('id', $this->tracker->id)
                 ->update([
                     'result' => $result,
+                    'updated_at' => now(),
+                ]);
+            $this->tracker->refresh();
+        }
+    }
+
+    /**
+     * Use it from a job to set progress in the tracker.
+     */
+    protected function setProgress(float $progress): void
+    {
+        if (! is_null($this->tracker)) {
+            JobTracker::where('id', $this->tracker->id)
+                ->update([
+                    'progress' => $progress,
                     'updated_at' => now(),
                 ]);
             $this->tracker->refresh();
