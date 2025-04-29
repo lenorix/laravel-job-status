@@ -22,6 +22,7 @@ class JobTracker extends Model
     protected $fillable = [
         'status',
         'attempts',
+        'progress',
         'result',
     ];
 

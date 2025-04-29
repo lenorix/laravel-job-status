@@ -13,6 +13,7 @@ class DummyJob implements ShouldQueue
 
     public function handle()
     {
+        $this->setProgress(50.0);
         $this->setResult($this->input * 2);
     }
 
