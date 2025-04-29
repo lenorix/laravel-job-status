@@ -91,9 +91,15 @@ trait Trackable
 
     /**
      * Use it from a job to set progress in the tracker.
+     *
+     * @throws \InvalidArgumentException if the progress is not between 0.0 and 100.0
      */
     protected function setProgress(float $progress): void
     {
+        if ($progress < 0.00 || $progress > 100.00) {
+            throw new \InvalidArgumentException('Progress must be between 0.0 and 100.0');
+        }
+
         if (! is_null($this->tracker)) {
             JobTracker::where('id', $this->tracker->id)
                 ->update([
