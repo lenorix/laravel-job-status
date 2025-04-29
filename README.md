@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/lenorix/laravel-job-status/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/lenorix/laravel-job-status/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/lenorix/laravel-job-status.svg?style=flat-square)](https://packagist.org/packages/lenorix/laravel-job-status)
 
-Job ULID, status and result made easy and simple.
+Job status and result made easy and simple.
 
 ## Support us
 
