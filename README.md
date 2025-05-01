@@ -31,7 +31,7 @@ It requires Laravel 11 or higher, and is tested on 11.37 as lowest version suppo
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-job-status-migrations"
+php artisan vendor:publish --tag="job-status-migrations"
 php artisan migrate
 ```
 
