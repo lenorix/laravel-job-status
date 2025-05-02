@@ -63,8 +63,8 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Event::listen(function (JobProcessing $event) {
-            $tracker = JobStatus::of($event->job);
+        Queue::before(function (JobProcessing $event) {
+            $tracker = JobStatus::of($event->connectionName === 'sync' ? $event->job : unserialize($event->job->payload()['data']['command']));
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)
                     ->whereIn('status', [
@@ -82,8 +82,8 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Event::listen(function (JobProcessed $event) {
-            $tracker = JobStatus::of($event->job);
+        Queue::after(function (JobProcessed $event) {
+            $tracker = JobStatus::of($event->connectionName === 'sync' ? $event->job : unserialize($event->job->payload()['data']['command']));
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)
                     ->update([
@@ -96,8 +96,8 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Event::listen(function (JobFailed $event) {
-            $tracker = JobStatus::of($event->job);
+        Queue::failing(function (JobFailed $event) {
+            $tracker = JobStatus::of($event->connectionName === 'sync' ? $event->job : unserialize($event->job->payload()['data']['command']));
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)
                     ->update([
