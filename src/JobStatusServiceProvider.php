@@ -76,6 +76,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
                     ->update([
                         'status' => JobStep::PROCESSING,
                         'attempts' => $event->job->attempts(),
+                        'result' => null,
                         'updated_at' => now(),
                     ]);
                 $tracker->refresh();
@@ -103,6 +104,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
                     ->update([
                         'status' => JobStep::FAILED,
                         'attempts' => $event->job->attempts(),
+                        'result' => $event->exception->getMessage(),
                         'updated_at' => now(),
                     ]);
                 $tracker->refresh();
