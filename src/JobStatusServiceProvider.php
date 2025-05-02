@@ -63,7 +63,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Queue::before(function (JobProcessing $event) {
+        Event::listen(function (JobProcessing $event) {
             $tracker = JobStatus::of($event->job);
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)
@@ -82,7 +82,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Queue::after(function (JobProcessed $event) {
+        Event::listen(function (JobProcessed $event) {
             $tracker = JobStatus::of($event->job);
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)
@@ -96,7 +96,7 @@ class JobStatusServiceProvider extends PackageServiceProvider
             }
         });
 
-        Queue::failing(function (JobFailed $event) {
+        Event::listen(function (JobFailed $event) {
             $tracker = JobStatus::of($event->job);
             if ($tracker) {
                 JobTracker::where('id', $tracker->id)

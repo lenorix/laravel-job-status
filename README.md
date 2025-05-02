@@ -78,7 +78,7 @@ class YourJob implements ShouldQueue
 And when you dispatch the job:
 
 ```php
-$tracker = YourJob::dispatch(...)
+$tracker = YourJob::dispatchWithTrack(...)
         ->afterResponse()
         ...
         /// Get tracker to have a way to know when it's done.
